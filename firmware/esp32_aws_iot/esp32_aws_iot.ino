@@ -1,6 +1,5 @@
 /*
  * Temperature Monitoring and Control System
- *
  * Fill in the Wi-Fi name, the Wi-Fi password, the AWS IoT endpoint, and the
  * three PEM strings before flashing.
  */
