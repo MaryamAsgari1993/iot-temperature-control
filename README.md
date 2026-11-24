@@ -49,7 +49,7 @@ The hardware prototype consists of:
 - NPN transistor
 - Resistors
 
-![Hardware Design](docs/figures/Fig2.png)
+![Hardware Design](docs/figures/Fig2)
 
 The wiring shows the temperature sensor and the heater LED, each with a series resistor, on the ESP32 development board, and the DC fan switched by a small transistor. The LED is the heater-state indicator on the prototype, so the command is visible on the board.
 
