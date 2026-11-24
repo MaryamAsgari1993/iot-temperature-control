@@ -48,6 +48,14 @@ The report compared three places to put the user interface. One keeps the MQTT c
 
 The path was exercised end to end with MQTT.fx and the AWS CLI. A temperature was published, the detector model was watched through its transitions, the control message was confirmed on the way back, and the stored reading and the email alert were checked.
 
+## Device code
+
+The ESP32 program from Appendix 1 is in [`firmware/esp32_aws_iot/esp32_aws_iot.ino`](firmware/esp32_aws_iot/esp32_aws_iot.ino). It was transcribed from the report screenshots.
+
+The sketch reads a DHT11 on pin 13, publishes a JSON temperature on `outTopic` every 10 seconds, and subscribes to `inTopic`, `mTopic`, and `setTopic`. Characters `0` and `1` switch the fan on pin 17. Characters `2` and `3` switch the heater LED on pin 23. `setTopic` parses a setpoint such as `23.4`.
+
+The appendix images do not include the certificate PEM text, and the `sprintf` line is cut off after the `Temp` field. Wi-Fi and the AWS endpoint are blank in the listing. The Python client and the Flask page are still not in this repo.
+
 ## Technologies
 
 ESP32-WROOM · C++ · Arduino IDE · Python · Flask · MQTT · Wi-Fi · TLS 1.2 · X.509 · AWS IoT Core · AWS IoT Events · DynamoDB · SNS · JSON
