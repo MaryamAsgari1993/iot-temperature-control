@@ -50,11 +50,19 @@ The path was exercised end to end with MQTT.fx and the AWS CLI. A temperature wa
 
 ## Device code
 
-The ESP32 program from Appendix 1 is in [`firmware/esp32_aws_iot/esp32_aws_iot.ino`](firmware/esp32_aws_iot/esp32_aws_iot.ino). It was transcribed from the report screenshots.
+The ESP32 program is in [`firmware/esp32_aws_iot/esp32_aws_iot.ino`](firmware/esp32_aws_iot/esp32_aws_iot.ino). It follows Appendix 1 and is filled in where the screenshots stopped.
 
-The sketch reads a DHT11 on pin 13, publishes a JSON temperature on `outTopic` every 10 seconds, and subscribes to `inTopic`, `mTopic`, and `setTopic`. Characters `0` and `1` switch the fan on pin 17. Characters `2` and `3` switch the heater LED on pin 23. `setTopic` parses a setpoint such as `23.4`.
+The sketch reads a DHT11 on pin 13 and publishes this JSON on `outTopic` every 10 seconds:
 
-The appendix images do not include the certificate PEM text, and the `sprintf` line is cut off after the `Temp` field. Wi-Fi and the AWS endpoint are blank in the listing. The Python client and the Flask page are still not in this repo.
+```json
+{"Device_ID":"esp32_609F1C","Fan":0,"Heater":0,"Flag1":1,"Flag2":0,"Temp":23.4}
+```
+
+`Fan` and `Heater` are the pin states. `Flag1` is `1` while AWS or a new setpoint is in charge, and `0` after a manual command. `Flag2` is cleared when a setpoint arrives, as in the appendix.
+
+`inTopic` is the detector model. `mTopic` is the manual dashboard. Both accept `0` fan off, `1` fan on, `2` heater off, `3` heater on, either as a single character or as `{"message":"1"}`. The fan is pin 17. The heater LED is pin 23. `setTopic` accepts text such as `23.4` or `{"setpoint":23.4}`. The ESP32 stores that number. The delay and the decision to switch the fan or the heater stay in IoT Events.
+
+Before flashing, put the Wi-Fi name, the Wi-Fi password, the AWS IoT endpoint, and the three certificate PEM strings into the constants at the top of the sketch. The report left those blank, and they are not stored here. The Python client and the Flask page are still not in this repo. The web form used a different numbering, `1` through `5`; the device contract is the `0` to `3` codes above, so the Python client has to translate.
 
 ## Technologies
 
