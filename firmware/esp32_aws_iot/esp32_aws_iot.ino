@@ -1,14 +1,8 @@
 /*
  * Temperature Monitoring and Control System
- * ESP32-WROOM firmware, Concordia, Fall 2022.
- *
- * Adjusted from Appendix 1 so the program matches the system that was built:
- * a DHT11 reading goes out every 10 seconds, and AWS IoT Events decides when
- * the fan and the heater LED change. The device does not run that state
- * machine itself.
  *
  * Fill in the Wi-Fi name, the Wi-Fi password, the AWS IoT endpoint, and the
- * three PEM strings before flashing. Those values were not in the report.
+ * three PEM strings before flashing.
  */
 
 #include <WiFi.h>
